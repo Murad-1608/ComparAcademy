@@ -33,8 +33,4 @@
     <Resource Include="wwwroot\web\images\b4.jpg" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\Photos\" />
-  </ItemGroup>
-
 </Project>

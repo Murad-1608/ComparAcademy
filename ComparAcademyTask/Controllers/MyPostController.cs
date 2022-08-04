@@ -1,5 +1,7 @@
 ﻿using BusinessLayer.Managers;
+using BusinessLayer.Validations;
 using EntityLayer.Entities;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -32,7 +34,7 @@ namespace ComparAcademyTask.Controllers
 
         [HttpGet]
         public IActionResult Delete(int id)
-        {            
+        {
 
             try
             {
@@ -50,8 +52,8 @@ namespace ComparAcademyTask.Controllers
 
             catch (Exception)
             {
-            }  
-            
+            }
+
             return RedirectToAction("Index");
         }
 
@@ -67,30 +69,45 @@ namespace ComparAcademyTask.Controllers
         {
             try
             {
-                if (Photo != null)
+                PostValidation uv = new PostValidation();
+
+                ValidationResult result = uv.Validate(entity);
+
+
+                if (!result.IsValid)
                 {
+                    foreach (var item in result.Errors)
+                    {
+                        ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                    }
+                }
+                if (Photo==null)
+                {
+                    ViewBag.Exception = "Xahiş olunur fayl seçin";
+                    return View();
+                }
+                else
+                {              
+                    
                     var extension = Path.GetExtension(Photo.FileName);
                     var newImageName = Guid.NewGuid() + extension;
                     var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/photos/" + newImageName);
                     var stream = new FileStream(location, FileMode.Create);
                     Photo.CopyTo(stream);
                     entity.Image = newImageName;
-                }
-                else
-                {
-                    entity.Image = "empty.jpg";
-                }
 
-                entity.UserID = Convert.ToInt32(HttpContext.Session.GetString("ID"));
+                    entity.UserID = Convert.ToInt32(HttpContext.Session.GetString("ID"));
 
-                db.Add(entity);
+                    db.Add(entity);
+                    return RedirectToAction("Index");
+                }
             }
 
             catch (Exception)
             {
             }
-             
-            return RedirectToAction("Index");
+            return View();
+
         }
     }
 }

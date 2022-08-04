@@ -42,7 +42,7 @@ namespace ComparAcademyTask.Controllers
                     new Claim("Name",user.Name),
                     new Claim("ID",user.ID.ToString())
                 };
-
+                 
                 ClaimsIdentity indentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 ClaimsPrincipal principal = new ClaimsPrincipal(indentity);
                 await HttpContext.SignInAsync(principal);

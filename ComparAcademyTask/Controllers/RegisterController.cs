@@ -44,8 +44,7 @@ namespace ComparAcademyTask.Controllers
                 }
                 else
                 {
-                    ViewBag.Exception = "Bu email mövcuddur";
-                    return View();
+                    ViewBag.Exception = "Bu email mövcuddur";                    
                 }
             }
 
