@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\web\images\b3.jpg" />
+    <Content Remove="wwwroot\web\images\b4.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\js\bootstrap.js" />
+    <None Include="wwwroot\js\easing.js" />
+    <None Include="wwwroot\js\jquery-2.2.3.min.js" />
+    <None Include="wwwroot\js\jquery.desoslide.js" />
+    <None Include="wwwroot\js\jquery.flexisel.js" />
+    <None Include="wwwroot\js\modernizr.custom.min.js" />
+    <None Include="wwwroot\js\move-top.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="RestSharp" Version="108.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj" />
+    <ProjectReference Include="..\DataAccessLayer1\DataAccessLayer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="wwwroot\web\images\b3.jpg" />
+    <Resource Include="wwwroot\web\images\b4.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Photos\" />
+  </ItemGroup>
+
+</Project>

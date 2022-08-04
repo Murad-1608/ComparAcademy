@@ -1,0 +1,32 @@
+﻿@using EntityLayer.Entities
+@model Post
+
+
+<section class="main-content-w3layouts-agileits">
+    <div class="container">
+        <h3 class="tittle">Yeni Post</h3>
+        <div class="inner-sec">
+            <div class="login p-5 bg-light mx-auto mw-100">
+                <form asp-controller="MyPost" asp-action="Add" enctype="multipart/form-data" method="post">
+                    <div class="col-md-6 mb-3">
+                            <label for="validationCustom01">Başlıq</label>
+
+                            @Html.TextBoxFor(x=>x.Title, new{@class="form-control"})
+                            @Html.ValidationMessageFor(x=>x.Title,"",new{@class="text-danger"})
+
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="validationCustom02">Şəkil</label>
+                            <input type="file" name="Photo" />
+                        </div>
+
+                    <button type="submit" class="btn btn-primary submit mb-4">Təstiqlə</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
