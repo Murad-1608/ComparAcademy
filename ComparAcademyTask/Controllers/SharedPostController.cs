@@ -40,16 +40,22 @@ namespace ComparAcademyTask.Controllers
         {
 
             var recipient = db_user.GetAll().FirstOrDefault(x => x.Email == email);
-
-
-            Share entity = new Share()
+            if (recipient == null)
             {
-                PostID = id,
-                SenderID = Convert.ToInt32(HttpContext.Session.GetString("ID")),
-                RecipientID = recipient.ID
-            };
+                TempData["Exception"] = "Bu email-ə uyğun istifadəçi yoxdur.";
+                TempData["ID"] = id;
+            }
+            else
+            {
+                Share entity = new Share()
+                {
+                    PostID = id,
+                    SenderID = Convert.ToInt32(HttpContext.Session.GetString("ID")),
+                    RecipientID = recipient.ID
+                };
 
-            db_share.Add(entity);
+                db_share.Add(entity);
+            }
 
             return RedirectToAction("Index", "MyPost");
         }
@@ -60,18 +66,17 @@ namespace ComparAcademyTask.Controllers
             var memory = new MemoryStream();
 
             try
-            { 
+            {
                 using (var stream = new FileStream(path, FileMode.Open))
                 {
 
                     await stream.CopyToAsync(memory);
-                }               
-                
+                }
+
             }
             catch (Exception)
-            {            
+            {
             }
-
 
             memory.Position = 0;
             var contentType = "APPLICATION/octet-stream";

@@ -1,5 +1,4 @@
 ﻿@using EntityLayer.Entities
-@using static System.Net.Mime.MediaTypeNames
 @model List<Post>
 
 
@@ -22,6 +21,9 @@
             <h3 class="tittle">Postlarım</h3>
             <div class="inner-sec">
                 <!--left-->
+
+
+
                 <div class="left-blog-info-w3layouts-agileits text-left">
                     <div class="row">
 
@@ -52,6 +54,11 @@
                                     </button>
                                 </form>
 
+                                @if (item.ID == Convert.ToInt32(TempData["ID"]))
+                                {
+                                    <p class="text-danger">@TempData["Exception"]</p>
+                                }
+
                                 <br>
                                 <a class="btn btn-primary read-m" href="~/SharedPost/DownloadFile/?filePath=@item.Image">
                                     Yüklə
@@ -64,6 +71,9 @@
 
                             </div>
                         </div>
+
+                        <br />
+                        <br />
                     }
 
                 </div>
