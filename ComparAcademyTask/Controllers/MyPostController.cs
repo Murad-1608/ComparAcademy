@@ -92,14 +92,18 @@ namespace ComparAcademyTask.Controllers
                     var extension = Path.GetExtension(Photo.FileName);
                     var newImageName = Guid.NewGuid() + extension;
                     var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/photos/" + newImageName);
-                    var stream = new FileStream(location, FileMode.Create);
-                    Photo.CopyTo(stream);
-                    entity.Image = newImageName;
 
-                    entity.UserID = Convert.ToInt32(HttpContext.Session.GetString("ID"));
+                    using (var stream = new FileStream(location, FileMode.Create))
+                    {                                               
+                        Photo.CopyTo(stream);
+                        entity.Image = newImageName;
 
-                    db.Add(entity);
-                    return RedirectToAction("Index");
+                        entity.UserID = Convert.ToInt32(HttpContext.Session.GetString("ID"));
+
+                        db.Add(entity);
+                        return RedirectToAction("Index");
+                    }
+                    
                 }
             }
 
